@@ -157,3 +157,16 @@
     --shadow-xl: var(--shadow-xl);
     --shadow-2xl: var(--shadow-2xl);
 }
+
+/* Remove number input spinners for Chrome, Safari, Edge */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove number input spinners for Firefox and standard */
+input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}

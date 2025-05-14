@@ -22,19 +22,19 @@
         <PopoverContent class="w-48 flex flex-col ">
           <label class="text-sm">Minutos</label>
           <div class="flex items-center gap-2 justify-between">
-            <Button size="icon" variant="ghost"
-              @click="customMinutes.value = Math.max(0, customMinutes.value - 1)">-</Button>
-            <span class="font-mono w-8 text-center">{{ customMinutes }}</span>
-            <Button size="icon" variant="ghost"
-              @click="customMinutes.value = Math.min(59, customMinutes.value + 1)">+</Button>
+            <Button size="icon" variant="ghost" @click="customMinutes = Math.max(0, customMinutes - 1)">-</Button>
+            <input type="number" min="0" max="59" v-model.number="customMinutes"
+              class="font-mono w-12 text-center rounded bg-transparent"
+              style="-moz-appearance: textfield; appearance: textfield;" inputmode="numeric" />
+            <Button size="icon" variant="ghost" @click="customMinutes = Math.min(59, customMinutes + 1)">+</Button>
           </div>
           <label class="text-sm">Segundos</label>
           <div class="flex items-center gap-2 justify-between">
-            <Button size="icon" variant="ghost"
-              @click="customSeconds.value = Math.max(0, customSeconds.value - 1)">-</Button>
-            <span class="font-mono w-8 text-center">{{ customSeconds }}</span>
-            <Button size="icon" variant="ghost"
-              @click="customSeconds.value = Math.min(59, customSeconds.value + 1)">+</Button>
+            <Button size="icon" variant="ghost" @click="customSeconds = Math.max(0, customSeconds - 1)">-</Button>
+            <input type="number" min="0" max="59" v-model.number="customSeconds"
+              class="font-mono w-12 text-center  rounded bg-transparent"
+              style="-moz-appearance: textfield; appearance: textfield;" inputmode="numeric" />
+            <Button size="icon" variant="ghost" @click="customSeconds = Math.min(59, customSeconds + 1)">+</Button>
           </div>
           <Button class="mt-2" variant="secondary" @click="setCustomFromFields">OK</Button>
         </PopoverContent>
