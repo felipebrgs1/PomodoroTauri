@@ -6,7 +6,7 @@ name: 'PomodoroApp Build'
 on:
     push:
         branches:
-            - release
+            - master
 
 jobs:
     publish-tauri:
