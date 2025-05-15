@@ -68,7 +68,9 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: tauri-build-${{ matrix.platform }}
-                  path: apps/web/src-tauri/target/release/bundle/
+                  path: |
+                      apps/web/src-tauri/target/release/bundle/
+                      release/pomodoro
 
     release:
         needs: publish-tauri
