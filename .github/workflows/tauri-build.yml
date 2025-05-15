@@ -5,8 +5,10 @@ name: 'PomodoroApp Build'
 
 on:
     push:
-        branches:
-            - master
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
 
 jobs:
     publish-tauri:
@@ -28,13 +30,13 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Set up Bun
-              uses: oven-sh/setup-bun@v1
-
-            - name: setup node
+            - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: lts/*
+                  node-version: 20
+
+            - name: Set up Bun
+              uses: oven-sh/setup-bun@v1
 
             - name: install Rust stable
               uses: dtolnay/rust-toolchain@stable
@@ -49,6 +51,10 @@ jobs:
                   sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
               # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
               # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
+
+            - name: Install JS dependencies
+              run: bun install
+              working-directory: apps/web
 
             - name: Build frontend
               run: bun run build
