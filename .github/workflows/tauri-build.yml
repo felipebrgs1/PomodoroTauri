@@ -69,3 +69,28 @@ jobs:
               with:
                   name: tauri-build-${{ matrix.platform }}
                   path: apps/web/src-tauri/target/release/bundle/
+
+    release:
+        needs: publish-tauri
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Download Artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: artifacts
+
+            - name: Create Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: v${{ github.run_number }}
+                  name: Release v${{ github.run_number }}
+                  body: |
+                      🚀 Nova build automática do Tauri.
+                      - Commit: ${{ github.sha }}
+                      - Build gerada em: ${{ github.workflow }}
+                  files: |
+                      artifacts/**/*
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
