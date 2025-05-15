@@ -18,10 +18,10 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - platform: 'macos-latest' # Arm Macs (M1+)
-                      args: '--target aarch64-apple-darwin'
-                    - platform: 'macos-latest' # Intel Macs
-                      args: '--target x86_64-apple-darwin'
+                    # - platform: 'macos-latest' # Arm Macs (M1+)
+                    #   args: '--target aarch64-apple-darwin'
+                    # - platform: 'macos-latest' # Intel Macs
+                    #   args: '--target x86_64-apple-darwin'
                     - platform: 'ubuntu-22.04' # Linux
                       args: ''
                     - platform: 'windows-latest' # Windows
@@ -40,9 +40,9 @@ jobs:
 
             - name: install Rust stable
               uses: dtolnay/rust-toolchain@stable
-              with:
-                  # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-                  targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+              # with:
+              #     Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+              #     targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
             - name: install dependencies (ubuntu only)
               if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
@@ -68,4 +68,31 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: tauri-build-${{ matrix.platform }}
-                  path: apps/web/src-tauri/target/release/bundle/
+                  path: |
+                      apps/web/src-tauri/target/release/bundle/
+                      release/pomodoro
+
+    release:
+        needs: publish-tauri
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Download Artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: artifacts
+
+            - name: Create Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: v${{ github.run_number }}
+                  name: Release v${{ github.run_number }}
+                  body: |
+                      🚀 Nova build automática do Tauri.
+                      - Commit: ${{ github.sha }}
+                      - Build gerada em: ${{ github.workflow }}
+                  files: |
+                      artifacts/**/*
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

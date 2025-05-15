@@ -1,14 +1,14 @@
 <template>
     <div ref="titlebarRef"
-        class="titlebar flex absolute top-0 w-full items-center justify-between h-10 px-3 select-none bg-zinc-600 text-white"
+        class="titlebar flex absolute top-0 w-full items-center justify-between h-10 px-3 select-none bg-zinc-700 text-white"
         id="titlebar">
         <div class="title font-semibold text-sm tracking-wide">Pomodoro</div>
         <div class="controls flex gap-1">
-            <Button class="w-7 h-7 flex items-center justify-center rounded bg-slate-300 hover:bg-fuchsia-700 "
+            <Button class="w-7 h-7 flex items-center justify-center rounded bg-slate-400 hover:bg-fuchsia-700 "
                 @click="minimize" aria-label="Minimizar">─</Button>
-            <Button class="w-7 h-7 flex items-center justify-center rounded bg-slate-300 hover:bg-fuchsia-700 "
+            <Button class="w-7 h-7 flex items-center justify-center rounded bg-slate-400 hover:bg-fuchsia-700 "
                 @click="toggleMaximize" aria-label="Maximizar">▢</Button>
-            <Button class="w-7 h-7 flex items-center justify-center rounded bg-slate-300 hover:bg-red-600 "
+            <Button class="w-7 h-7 flex items-center justify-center rounded bg-slate-400 hover:bg-red-600 "
                 @click="closeWindow" aria-label="Fechar">✕</Button>
         </div>
     </div>

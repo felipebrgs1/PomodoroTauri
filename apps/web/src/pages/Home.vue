@@ -1,15 +1,18 @@
 <template>
     <div :class="[
         'w-full h-lvh  p-4 flex flex-col items-center justify-center transition-colors',
-        theme === 'dark' ? 'dark' : ''
+        theme === 'dark' ? 'dark' : '',
+        selectedTheme === 'claymorphism' ? 'theme-claymorphism' : ''
     ]" style="background: var(--background); color: var(--foreground);">
         <!-- Botão de tema no topo direito -->
-        <Button class="absolute top-12 right-4 p-2 rounded-full transition-colors"
-            :style="`background: ${theme === 'dark' ? 'var(--card)' : 'var(--card)'}; color: var(--foreground);`"
-            @click="store.toggleTheme" aria-label="Alternar tema" variant="ghost" size="icon">
-            <Sun v-if="theme !== 'dark'" class="w-6 h-6" style="color: #facc15;" />
-            <Moon v-else class="w-6 h-6" style="color: #60a5fa;" />
-        </Button>
+        <div class="absolute top-12 left-4 flex gap-2 items-center">
+            <ThemeSelector v-model="selectedTheme" />
+        </div>
+
+        <div class="absolute top-12 right-4 flex gap-2 items-center">
+            <ThemeToggle />
+
+        </div>
 
         <div class="flex gap-2 mb-4 mt-8">
             <Button variant="default" @click="store.setDuration(10)">10 min</Button>
@@ -59,14 +62,16 @@
     import { ref } from 'vue'
     import { usePomodoroStore } from '../stores/pomodoroStore'
     import { storeToRefs } from 'pinia'
-    import { Sun, Moon } from 'lucide-vue-next';
     import { Button } from '@/components/ui/button'
     import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
+    import ThemeToggle from '@/components/ui/ThemeToggle.vue'
+    import ThemeSelector from '@/components/ui/ThemeSelector.vue'
     const store = usePomodoroStore()
     const { minutes, seconds, running, theme } = storeToRefs(store)
     const customOpen = ref(false)
     const customMinutes = ref(15)
     const customSeconds = ref(0)
+    const selectedTheme = ref('default')
 
     function setCustomFromFields() {
         store.setDuration(Number(customMinutes.value), Number(customSeconds.value))
