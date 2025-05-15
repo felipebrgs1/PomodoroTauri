@@ -5,9 +5,9 @@ name: 'PomodoroApp Build'
 
 on:
     push:
-        branches: [main]
+        branches: [master]
     pull_request:
-        branches: [main]
+        branches: [master]
     workflow_dispatch:
 
 jobs:
@@ -93,6 +93,6 @@ jobs:
                       - Commit: ${{ github.sha }}
                       - Build gerada em: ${{ github.workflow }}
                   files: |
-                      artifacts/**/*
+                      artifacts/**
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

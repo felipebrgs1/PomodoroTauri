@@ -23,9 +23,7 @@
             "csp": null
         },
         "trayIcon": {
-            "iconPath": "icons/icon.png",
-            "iconAsTemplate": true,
-            "showMenuOnLeftClick": true
+            "iconPath": "icons/icon.png"
         }
     },
     "bundle": {
