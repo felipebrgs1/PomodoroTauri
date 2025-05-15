@@ -2,12 +2,7 @@
     <div class="relative inline-block text-left" ref="root">
         <button @click="toggleDropdown"
             class="p-2 rounded bg-transparent  focus:outline-none flex items-center justify-center">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" class="feather feather-menu">
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
+            <Menu />
         </button>
         <div v-if="dropdownOpen"
             class="absolute left-0 w-30 rounded-md ring-1 ring-slate-300 shadow-lg bg-[var(--popover)] text-[var(--popover-foreground)] z-10">
@@ -24,7 +19,8 @@
 
 <script setup lang="ts">
     import { ref, onMounted, onBeforeUnmount } from 'vue'
-    const props = defineProps<{ modelValue: string }>()
+    import { Menu } from 'lucide-vue-next'
+    defineProps<{ modelValue: string }>()
     const emit = defineEmits(['update:modelValue'])
 
     const options = [

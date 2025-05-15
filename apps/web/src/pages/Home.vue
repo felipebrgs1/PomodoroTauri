@@ -5,13 +5,13 @@
         selectedTheme === 'claymorphism' ? 'theme-claymorphism' : ''
     ]" style="background: var(--background); color: var(--foreground);">
         <!-- Botão de tema no topo direito -->
-<div class="absolute top-12 left-4 flex gap-2 items-center">
-    <ThemeSelector v-model="selectedTheme" />
-</div>
+        <div class="absolute top-12 left-4 flex gap-2 items-center">
+            <ThemeSelector v-model="selectedTheme" />
+        </div>
 
         <div class="absolute top-12 right-4 flex gap-2 items-center">
             <ThemeToggle />
-            
+
         </div>
 
         <div class="flex gap-2 mb-4 mt-8">
@@ -62,7 +62,6 @@
     import { ref } from 'vue'
     import { usePomodoroStore } from '../stores/pomodoroStore'
     import { storeToRefs } from 'pinia'
-    import { Sun, Moon } from 'lucide-vue-next';
     import { Button } from '@/components/ui/button'
     import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
     import ThemeToggle from '@/components/ui/ThemeToggle.vue'
