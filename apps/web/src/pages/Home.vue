@@ -5,18 +5,13 @@
         selectedTheme === 'claymorphism' ? 'theme-claymorphism' : ''
     ]" style="background: var(--background); color: var(--foreground);">
         <!-- Botão de tema no topo direito -->
+<div class="absolute top-12 left-4 flex gap-2 items-center">
+    <ThemeSelector v-model="selectedTheme" />
+</div>
+
         <div class="absolute top-12 right-4 flex gap-2 items-center">
-            <Button class="p-2 rounded-full transition-colors"
-                :style="`background: ${theme === 'dark' ? 'var(--card)' : 'var(--card)'}; color: var(--foreground);`"
-                @click="store.toggleTheme" aria-label="Alternar tema" variant="ghost" size="icon">
-                <Sun v-if="theme !== 'dark'" class="w-6 h-6" style="color: #facc15;" />
-                <Moon v-else class="w-6 h-6" style="color: #60a5fa;" />
-            </Button>
-            <!-- Seletor de tema claymorphism -->
-            <select v-model="selectedTheme" class="rounded px-2 py-1 bg-transparent border border-gray-300 text-sm focus:outline-none">
-                <option value="default">Default</option>
-                <option value="claymorphism">Claymorphism</option>
-            </select>
+            <ThemeToggle />
+            
         </div>
 
         <div class="flex gap-2 mb-4 mt-8">
@@ -70,6 +65,8 @@
     import { Sun, Moon } from 'lucide-vue-next';
     import { Button } from '@/components/ui/button'
     import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
+    import ThemeToggle from '@/components/ui/ThemeToggle.vue'
+    import ThemeSelector from '@/components/ui/ThemeSelector.vue'
     const store = usePomodoroStore()
     const { minutes, seconds, running, theme } = storeToRefs(store)
     const customOpen = ref(false)
